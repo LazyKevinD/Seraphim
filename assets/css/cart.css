@@ -1,0 +1,159 @@
+.ref-product-preview {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.ref-product-preview-header {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.ref-product-preview-content {
+  background: #ffffff !important;
+}
+
+.ref-backdrop {
+  background: transparent !important;
+}
+
+/* Fondo general del checkout */
+
+.ref-checkout, .ref-checkout-content, .ref-details {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Titulos */
+
+.ref-heading, .ref-heading-small {
+  color: #000000 !important;
+}
+
+/* Texto general */
+
+.ref-checkout label span, .ref-checkout div, .ref-checkout p {
+  color: #000000 !important;
+}
+
+/* Inputs */
+
+.ref-form-control {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+}
+
+/* Select */
+
+.ref-form-control select {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Textarea */
+
+textarea.ref-form-control {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Botones */
+
+.ref-button {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: none !important;
+}
+
+.ref-button:hover {
+  background: #3a2cff !important;
+}
+
+/* Tarjetas de envio */
+
+.ref-delivery-card {
+  background: #ffffff !important;
+  border: 1px solid #333 !important;
+}
+
+/* Métodos de envio */
+
+.ref-row {
+  border-bottom: 1px solid #333 !important;
+}
+
+/* Panel derecho - Order Summary */
+
+.ref-checkout-summary {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Productos dentro del resumen */
+
+.ref-product-name, .ref-product-secondary, .ref-product-total {
+  color: #000000 !important;
+}
+
+/* Lineas separadoras */
+
+.ref-checkout-summary hr {
+  border-color: #333 !important;
+}
+
+/* Totales */
+
+.ref-row span {
+  color: #000000 !important;
+}
+
+/* Nota del total */
+
+.ref-total-note {
+  color: #bbbbbb !important;
+}
+
+.ref-profile-name {
+  color: #5041ff !important;
+}
+
+/* Texto general más claro */
+
+body {
+  color: #000000;
+}
+
+/* Texto gris de Bootstrap */
+
+.text-muted {
+  color: #696969 !important;
+}
+
+/* Labels y textos pequeños */
+
+label, small {
+  color: #707070 !important;
+}
+
+/* Párrafos */
+
+p {
+  color: #727272;
+}
+
+/* Links */
+
+a {
+  color: #6ea8ff;
+}
+
+a:hover {
+  color: #9ec5ff;
+}
+
+/* Texto de Reflow */
+
+.ref-heading, .ref-product-secondary, .ref-total-note {
+  color: #7c7c7c !important;
+}
+

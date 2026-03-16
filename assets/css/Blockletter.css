@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'Blockletter';
+	src: url(../../assets/fonts/Blockletter-90439c997e41a0befc629222fa14cd48.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Blockletter-90439c997e41a0befc629222fa14cd48.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Blockletter-7eb04bf2045218cec33ebbed73c5d5b9.woff2) format('woff2'),
+	url(../../assets/fonts/Blockletter-61d939058ff6e8e459991e47da1b5b72.woff) format('woff'),
+	url(../../assets/fonts/Blockletter-7767c9bfc20c9822157011d25ac0c38c.svg) format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-display: auto;
+}
