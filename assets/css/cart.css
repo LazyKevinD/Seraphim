@@ -157,3 +157,11 @@ a:hover {
   color: #7c7c7c !important;
 }
 
+:root {
+  --navbar-height: 88px;
+}
+
+.navbar {
+  height: var(--navbar-height);
+}
+

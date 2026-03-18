@@ -32,6 +32,7 @@
 .img-card img {
   width: 100%;
   display: block;
+  border-radius: 25px;
 }
 
 .info-box {
