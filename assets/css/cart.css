@@ -161,3 +161,8 @@ a:hover {
   --navbar-height: 1.2rem;
 }
 
+.dropdown-menu .dropdown-item:hover {
+  background-color: #ffffff!important;
+  color: black !important;
+}
+
