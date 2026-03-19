@@ -158,10 +158,6 @@ a:hover {
 }
 
 :root {
-  --navbar-height: 88px;
-}
-
-.navbar {
-  height: var(--navbar-height);
+  --navbar-height: 1.2rem;
 }
 

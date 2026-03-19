@@ -26,3 +26,43 @@
   transform: scale(1.1);
 }
 
+.seccion-superior {
+  padding-top: 66px;
+}
+
+@media (min-width: 576px) {
+  .seccion-superior {
+    padding-top: 88px;
+  }
+}
+
+.team-xs {
+  height: 368.55px;
+}
+
+@media (min-width: 576px) {
+  .team-xs {
+    height: 506px;
+  }
+}
+
+.texto-inclinado {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+
+.seccion-xs {
+  height: 300px;
+}
+
+@media (min-width: 600px) {
+  .seccion-xs {
+    height: 100px;
+  }
+}
+
