@@ -60,19 +60,23 @@
   background: transparent;
 }
 
-@media (min-width: 600px) {
-  .seccion-xs {
-    background-color: #16222f;
-  }
-}
-
 .seccion-superior2 {
-  height: 300px;
+  height: 150px;
 }
 
 @media (min-width: 600px) {
   .seccion-superior2 {
     height: 200px;
   }
+}
+
+.imagen-cuadrada {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.col-derecha {
+  flex: 1;
 }
 
