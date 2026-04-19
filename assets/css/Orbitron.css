@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'Orbitron';
+	src: url(../../assets/fonts/Orbitron-a4031e487e2f32bb601d99d7aa51bcd1.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Orbitron-a4031e487e2f32bb601d99d7aa51bcd1.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Orbitron-23075b4f95e4d28843b04f39fbd9ef0d.woff2) format('woff2'),
+	url(../../assets/fonts/Orbitron-488f495b8a8f70a78f4e980e4f60454d.woff) format('woff'),
+	url(../../assets/fonts/Orbitron-227ae69233624ad15ff67c152c02994b.ttf) format('truetype'),
+	url(../../assets/fonts/Orbitron-cb8a693f2d26708ca8ffe5ec65535297.svg) format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-display: auto;
+}

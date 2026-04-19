@@ -1,0 +1,26 @@
+.cyberpunk-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  background: linear-gradient( 90deg, #00e5ff 0%, #00cfff 25%, #00b7ff 50%, #009dff 75%, #000bff 100% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 2px rgba(0, 229, 255, 0.6), 0 0 6px rgba(0,12,22,0.5);
+}
+
+.cyberpunk-text {
+  position: relative;
+  display: inline-block;
+}
+
+.cyberpunk-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient( 180deg, rgba(255,255,255,0.7), rgba(255,255,255,0) 40% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+

@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'Platinum Sign Under';
+	src: url(../../assets/fonts/Platinum%20Sign%20Under-814cfce5cf90ebbc652334cc19c571f3.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Platinum%20Sign%20Under-814cfce5cf90ebbc652334cc19c571f3.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Platinum%20Sign%20Under-848f654a7274b2921b28bccfeba6f8c3.woff2) format('woff2'),
+	url(../../assets/fonts/Platinum%20Sign%20Under-968319d436e8fc85f0d899f86836c73d.woff) format('woff'),
+	url(../../assets/fonts/Platinum%20Sign%20Under-3dc928c1aa577d5dd2269243cd7865c6.ttf) format('truetype'),
+	url(../../assets/fonts/Platinum%20Sign%20Under-40b5082be646dce2bedad019742f83e8.svg) format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-display: auto;
+}

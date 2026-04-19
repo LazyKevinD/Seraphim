@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'Platinum Sign Over';
+	src: url(../../assets/fonts/Platinum%20Sign%20Over-bed9c31e12b0f69ac3aef4d6be47282d.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Platinum%20Sign%20Over-bed9c31e12b0f69ac3aef4d6be47282d.eot) format('embedded-opentype'),
+	url(../../assets/fonts/Platinum%20Sign%20Over-1b85ae513b07fa36d99fd46df0c6b271.woff2) format('woff2'),
+	url(../../assets/fonts/Platinum%20Sign%20Over-6e129ba2ab21e4f6529651340552a8e5.woff) format('woff'),
+	url(../../assets/fonts/Platinum%20Sign%20Over-49332b75695290a82778fd9b7da44f0c.ttf) format('truetype'),
+	url(../../assets/fonts/Platinum%20Sign%20Over-eca5b0b667389246930c75f7af6dbcc4.svg) format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-display: auto;
+}
