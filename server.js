@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 const db = require('./db/database');
 
 const app = express();
-const PORT = 3000;
+//const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 db.connect()
     .then(client => {
         console.log('✅ Conectado a PostgreSQL');
@@ -67,6 +68,10 @@ app.use((req, res) => {
     res.status(404).render('404');
 });
 
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+});*/
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
