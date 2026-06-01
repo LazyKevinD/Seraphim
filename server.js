@@ -7,8 +7,8 @@ const db = require('./db/database');
 
 
 const app = express();
-const PORT = 3000;
-//const PORT = process.env.PORT || 8080;
+//const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 const adminPlayerRoutes = require('./routes/adminJugadores.routes');
 const equiposRoutes = require('./routes/equipos.routes');
@@ -75,6 +75,6 @@ app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });
 
-/*app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor ejecutándose en puerto ${PORT}`);
-});*/
+});
