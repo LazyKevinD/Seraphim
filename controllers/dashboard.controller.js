@@ -4,7 +4,7 @@ async function mostrarDashboard(req, res) {
 
     const roles = await Dashboard.obtenerUsuariosPorRol();
 
-    res.render('admin/dashboard', {
+    res.render('ADMIN/dashboard', {
         user: req.session.user,
         roles
     });
