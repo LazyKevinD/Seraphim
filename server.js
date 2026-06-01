@@ -44,7 +44,7 @@ function soloAdmin(req, res, next) {
     }
 
     if (req.session.user.rol !== 'ADMIN') {
-        return res.status(403).render('PRINCIPAL/403');
+        return res.status(403).render('principal/403');
     }
 
     next();
