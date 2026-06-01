@@ -2,9 +2,24 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
+const db = require('./db/database');
 
 const app = express();
 const PORT = 3000;
+db.connect()
+    .then(client => {
+        console.log('✅ Conectado a PostgreSQL');
+
+        client.query('SELECT NOW()')
+            .then(res => {
+                console.log('Fecha servidor:', res.rows[0]);
+                client.release();
+            });
+    })
+    .catch(err => {
+        console.error('❌ Error de conexión:', err);
+    });
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));

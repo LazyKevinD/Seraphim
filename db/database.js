@@ -1,7 +1,10 @@
-const MOTOR = 'mysql';
+//const MOTOR = 'mysql';
 // const MOTOR = 'postgres';
+const MOTOR = 'linea';
 
 module.exports =
     MOTOR === 'mysql'
         ? require('./mysql')
-        : require('./postgres');
+        : MOTOR === 'postgres'
+            ? require('./postgres')
+            : require('./linea');
