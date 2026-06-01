@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html data-bs-theme="light">
+<head>
+    <title>ABCC Redes</title>
+    <%- include('../PARTIALS/head') %>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<%- include('../partials/navbar') %>
+
+<main class="page" style="padding-top:120px;background:#fff;min-height:100vh;">
+<section>
+<div class="container">
+
+    <h1 style="font-weight:bold;color:#000;">ABCC REDES SOCIALES</h1>
+    <hr>
+
+    <% if (mensaje) { %>
+        <div id="mensaje-alerta" class="alert alert-<%= tipo %> alert-dismissible fade show">
+            <%= mensaje %>
+            <button type="button" class="btn-close" onclick="cerrarAlerta()"></button>
+        </div>
+    <% } %>
+
+    <form action="/admin/redes/agregar" method="POST" class="mb-4 p-3 border rounded">
+        <h4 style="font-weight:bold;">Agregar red social</h4>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Nombre de la red social</label>
+                <input class="form-control mayuscula" name="nombre_red_social" placeholder="INSTAGRAM" required>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-dark w-100" type="submit">AGREGAR</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mb-3">
+        <label class="form-label" style="font-weight:bold;">Buscar red social</label>
+        <input type="text" id="buscar" class="form-control" placeholder="ESCRIBE ALGO PARA BUSCAR...">
+    </div>
+
+    <div class="table-responsive">
+        <table id="tablaAdmin" class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Red social</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% redes.forEach(red => { %>
+                    <tr class="fila">
+                        <form action="/admin/redes/editar/<%= red.id %>" method="POST">
+                            <td><%= red.id %></td>
+
+                            <td>
+                                <input class="form-control mayuscula" name="nombre_red_social" value="<%= red.nombre_red_social %>">
+                            </td>
+
+                            <td>
+                                <button class="btn btn-warning btn-sm mb-1 w-100" type="submit">Editar</button>
+                        </form>
+
+                                <form action="/admin/redes/eliminar/<%= red.id %>" method="POST" onsubmit="return confirmarEliminar('<%= red.nombre_red_social %>')">
+                                    <button class="btn btn-danger btn-sm w-100" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</section>
+</main>
+
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function confirmarEliminar(nombre) {
+    return confirm(`¿Estás seguro que quieres eliminar: ${nombre}?`);
+}
+
+function cerrarAlerta() {
+    const alerta = document.getElementById('mensaje-alerta');
+    if (alerta) alerta.remove();
+
+    if (window.location.search.includes('mensaje=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+const buscar = document.getElementById('buscar');
+if (buscar) {
+    buscar.addEventListener('keyup', function () {
+        const texto = this.value.toLowerCase();
+        document.querySelectorAll('.fila').forEach(fila => {
+            fila.style.display = fila.innerText.toLowerCase().includes(texto) ? '' : 'none';
+        });
+    });
+}
+
+document.querySelectorAll('.mayuscula').forEach(campo => {
+    campo.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
+    });
+});
+
+const alerta = document.getElementById('mensaje-alerta');
+if (alerta) setTimeout(cerrarAlerta, 3000);
+</script>
+
+    <%- include('../PARTIALS/scripts') %>
+</body>
+</html>

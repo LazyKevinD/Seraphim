@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html data-bs-theme="light">
+<head>
+    <title>ABCC Jugador Redes</title>
+    <%- include('../PARTIALS/head') %>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<%- include('../partials/navbar') %>
+
+<main class="page" style="padding-top:120px;background:#fff;min-height:100vh;">
+<section>
+<div class="container">
+
+    <h1 style="font-weight:bold;color:#000;">ABCC REDES DE JUGADOR</h1>
+    <hr>
+
+    <% if (mensaje) { %>
+        <div id="mensaje-alerta" class="alert alert-<%= tipo %> alert-dismissible fade show">
+            <%= mensaje %>
+            <button type="button" class="btn-close" onclick="cerrarAlerta()"></button>
+        </div>
+    <% } %>
+
+    <form action="/admin/jugador_redes/agregar" method="POST" class="mb-4 p-3 border rounded">
+        <h4 style="font-weight:bold;">Agregar red a jugador</h4>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Jugador</label>
+                <select class="form-select" name="nombre_jugador" required>
+                    <% players.forEach(player => { %>
+                        <option value="<%= player.nombre %>"><%= player.nombre %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Red social</label>
+                <select class="form-select" name="red_social" required>
+                    <% redes.forEach(red => { %>
+                        <option value="<%= red.nombre_red_social %>"><%= red.nombre_red_social %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">URL</label>
+                <input class="form-control" type="url" name="url" placeholder="https://..." required>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-dark w-100" type="submit">AGREGAR</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mb-3">
+        <label class="form-label" style="font-weight:bold;">Buscar red de jugador</label>
+        <input type="text" id="buscar" class="form-control" placeholder="ESCRIBE ALGO PARA BUSCAR...">
+    </div>
+
+    <div class="table-responsive">
+        <table id="tablaAdmin" class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Jugador</th>
+                    <th>Red social</th>
+                    <th>URL</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% jugadorRedes.forEach(red => { %>
+                    <tr class="fila">
+                        <td><%= red.nombre_jugador %></td>
+                        <td><%= red.red_social %></td>
+                        <td>
+                            <a href="<%= red.url %>" target="_blank"><%= red.url %></a>
+                        </td>
+                        <td>
+                            <form action="/admin/jugador_redes/eliminar" method="POST" onsubmit="return confirmarEliminar('<%= red.nombre_jugador %>')">
+                                <input type="hidden" name="nombre_jugador" value="<%= red.nombre_jugador %>">
+                                <input type="hidden" name="red_social" value="<%= red.red_social %>">
+                                <input type="hidden" name="url" value="<%= red.url %>">
+                                <button class="btn btn-danger btn-sm w-100" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</section>
+</main>
+
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function confirmarEliminar(nombre) {
+    return confirm(`¿Estás seguro que quieres eliminar esta red de: ${nombre}?`);
+}
+
+function cerrarAlerta() {
+    const alerta = document.getElementById('mensaje-alerta');
+    if (alerta) alerta.remove();
+
+    if (window.location.search.includes('mensaje=')) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+const buscar = document.getElementById('buscar');
+if (buscar) {
+    buscar.addEventListener('keyup', function () {
+        const texto = this.value.toLowerCase();
+        document.querySelectorAll('.fila').forEach(fila => {
+            fila.style.display = fila.innerText.toLowerCase().includes(texto) ? '' : 'none';
+        });
+    });
+}
+
+const alerta = document.getElementById('mensaje-alerta');
+if (alerta) setTimeout(cerrarAlerta, 3000);
+</script>
+
+    <%- include('../PARTIALS/scripts') %>
+</body>
+</html>

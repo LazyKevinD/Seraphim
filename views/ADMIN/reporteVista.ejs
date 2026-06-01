@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Vista General Seraphim</title>
+
+    <link rel="stylesheet"
+          href="/assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<%- include('../partials/navbar') %>
+
+<div class="container mt-5 pt-5">
+
+    <h1 class="mb-4">
+        Vista General Seraphim
+    </h1>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Jugador</th>
+                    <th>Equipo</th>
+                    <th>Red Social</th>
+                    <th>URL</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% datos.forEach(dato => { %>
+
+                    <tr>
+
+                        <td><%= dato.jugador %></td>
+
+                        <td><%= dato.nombre_equipo || 'SIN EQUIPO' %></td>
+
+                        <td><%= dato.red_social || 'SIN RED' %></td>
+
+                        <td>
+
+                            <% if (dato.url) { %>
+
+                                <a href="<%= dato.url %>"
+                                   target="_blank">
+
+                                    Ver perfil
+
+                                </a>
+
+                            <% } %>
+
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+<a href="/admin/reporte-vista/excel"
+   class="btn btn-success mb-3">
+
+    Descargar Excel
+
+</a>
+
+    <%- include('../PARTIALS/scripts') %>
+</body>
+</html>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
 const db = require('../db/database');
 
 router.get('/login', (req, res) => {
@@ -10,32 +11,62 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+    
     const { usuario, password } = req.body;
 
-    const [usuarios] = await db.query(
-        'SELECT * FROM usuarios WHERE usuario = $1',
-        [usuario]
-    );
+    const captcha = req.body['g-recaptcha-response'];
 
-    if (usuarios.length === 0) {
-        return res.redirect('/login?mensaje=Usuario no encontrado');
+    if (!captcha) {
+        return res.redirect('/login?mensaje=Completa el captcha');
     }
 
-    const user = usuarios[0];
+    try {
+        const response = await axios.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            null,
+            {
+                params: {
+                    secret: process.env.RECAPTCHA_SECRET,
+                    response: captcha
+                }
+            }
+        );
 
-    const passwordCorrecta = await bcrypt.compare(password, user.password);
+        if (!response.data.success) {
+            return res.redirect('/login?mensaje=Captcha inválido');
+        }
 
-    if (!passwordCorrecta) {
-        return res.redirect('/login?mensaje=Contraseña incorrecta');
+        const result = await db.query(
+            'SELECT * FROM usuarios WHERE usuario = $1',
+            [usuario]
+        );
+
+        const usuarios = result.rows;
+
+        if (usuarios.length === 0) {
+            return res.redirect('/login?mensaje=Usuario no encontrado');
+        }
+
+        const user = usuarios[0];
+
+        const passwordCorrecta = await bcrypt.compare(password, user.password);
+
+        if (!passwordCorrecta) {
+            return res.redirect('/login?mensaje=Contraseña incorrecta');
+        }
+
+        req.session.user = {
+            id: user.id,
+            usuario: user.usuario,
+            rol: user.rol
+        };
+
+        res.redirect('/');
+
+    } catch (error) {
+        console.error(error);
+        res.redirect('/login?mensaje=Error al validar captcha');
     }
-
-    req.session.user = {
-        id: user.id,
-        usuario: user.usuario,
-        rol: user.rol
-    };
-
-    res.redirect('/');
 });
 
 router.post('/login/invitado', (req, res) => {
@@ -72,10 +103,12 @@ router.post('/registro', async (req, res) => {
     }
 
     try {
-        const [existeUsuario] = await db.query(
+        const result1 = await db.query(
             'SELECT id FROM usuarios WHERE usuario = $1',
             [usuario]
         );
+
+        const existeUsuario = result1.rows;
 
         if (existeUsuario.length > 0) {
             return res.redirect('/registro?mensaje=El usuario ya existe');

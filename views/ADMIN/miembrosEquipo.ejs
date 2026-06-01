@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-bs-theme="light">
 <head>
-    <title>ABCC Equipos</title>    
+    <title>ABCC Miembros Equipo</title>
     <%- include('../PARTIALS/head') %>
 </head>
 
@@ -12,7 +12,7 @@
 <section>
 <div class="container">
 
-    <h1 style="font-weight:bold;color:#000;">ABCC EQUIPOS</h1>
+    <h1 style="font-weight:bold;color:#000;">ABCC MIEMBROS EQUIPO</h1>
     <hr>
 
     <% if (mensaje) { %>
@@ -22,13 +22,26 @@
         </div>
     <% } %>
 
-    <form action="/admin/equipos/agregar" method="POST" class="mb-4 p-3 border rounded">
-        <h4 style="font-weight:bold;">Agregar equipo</h4>
+    <form action="/admin/miembros-equipo/agregar" method="POST" class="mb-4 p-3 border rounded">
+        <h4 style="font-weight:bold;">Agregar miembro a equipo</h4>
 
         <div class="row g-3">
-            <div class="col-md-8">
-                <label class="form-label">Nombre del equipo</label>
-                <input class="form-control mayuscula" name="nombre_equipo" placeholder="OVERWATCH SERAPHIM" required>
+            <div class="col-md-4">
+                <label class="form-label">Equipo</label>
+                <select class="form-select" name="nombre_equipo" required>
+                    <% equipos.forEach(equipo => { %>
+                        <option value="<%= equipo.nombre_equipo %>"><%= equipo.nombre_equipo %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Integrante</label>
+                <select class="form-select" name="integrante" required>
+                    <% players.forEach(player => { %>
+                        <option value="<%= player.nombre %>"><%= player.nombre %></option>
+                    <% }) %>
+                </select>
             </div>
 
             <div class="col-md-4 d-flex align-items-end">
@@ -38,7 +51,7 @@
     </form>
 
     <div class="mb-3">
-        <label class="form-label" style="font-weight:bold;">Buscar equipo</label>
+        <label class="form-label" style="font-weight:bold;">Buscar miembro</label>
         <input type="text" id="buscar" class="form-control" placeholder="ESCRIBE ALGO PARA BUSCAR...">
     </div>
 
@@ -46,30 +59,24 @@
         <table id="tablaAdmin" class="table table-bordered table-hover align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
                     <th>Equipo</th>
+                    <th>Integrante</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                <% equipos.forEach(equipo => { %>
+                <% miembros.forEach(miembro => { %>
                     <tr class="fila">
-                        <form action="/admin/equipos/editar/<%= equipo.id %>" method="POST">
-                            <td><%= equipo.id %></td>
-
-                            <td>
-                                <input class="form-control mayuscula" name="nombre_equipo" value="<%= equipo.nombre_equipo %>">
-                            </td>
-
-                            <td>
-                                <button class="btn btn-warning btn-sm mb-1 w-100" type="submit">Editar</button>
-                        </form>
-
-                                <form action="/admin/equipos/eliminar/<%= equipo.id %>" method="POST" onsubmit="return confirmarEliminar('<%= equipo.nombre_equipo %>')">
-                                    <button class="btn btn-danger btn-sm w-100" type="submit">Eliminar</button>
-                                </form>
-                            </td>
+                        <td><%= miembro.nombre_equipo %></td>
+                        <td><%= miembro.integrante %></td>
+                        <td>
+                            <form action="/admin/miembros_equipo/eliminar" method="POST" onsubmit="return confirmarEliminar('<%= miembro.integrante %>')">
+                                <input type="hidden" name="nombre_equipo" value="<%= miembro.nombre_equipo %>">
+                                <input type="hidden" name="integrante" value="<%= miembro.integrante %>">
+                                <button class="btn btn-danger btn-sm w-100" type="submit">Eliminar</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -84,7 +91,7 @@
 
 <script>
 function confirmarEliminar(nombre) {
-    return confirm(`¿Estás seguro que quieres eliminar: ${nombre}?`);
+    return confirm(`¿Estás seguro que quieres eliminar a este miembro: ${nombre}?`);
 }
 
 function cerrarAlerta() {
@@ -105,12 +112,6 @@ if (buscar) {
         });
     });
 }
-
-document.querySelectorAll('.mayuscula').forEach(campo => {
-    campo.addEventListener('input', function () {
-        this.value = this.value.toUpperCase();
-    });
-});
 
 const alerta = document.getElementById('mensaje-alerta');
 if (alerta) setTimeout(cerrarAlerta, 3000);

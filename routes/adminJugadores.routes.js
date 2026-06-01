@@ -1,64 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/database');
 
-router.get('/', async (req, res) => {
-    const [players] = await db.query('SELECT * FROM players');
-    const [equipos] = await db.query('SELECT * FROM equipos');
+const adminPlayerController = require('../controllers/players.controller');
 
-    res.render('admin/jugadores', {
-        players,
-        equipos,
-        mensaje: req.query.mensaje || null,
-        tipo: req.query.tipo || null
-    });
-});
+router.get('/', adminPlayerController.mostrarJugadores);
 
-router.post('/agregar', async (req, res) => {
-    const { slug, nombre, comentario } = req.body;
-    let teams = req.body.teams || [];
+router.post('/agregar', adminPlayerController.agregarJugador);
 
-    if (!Array.isArray(teams)) {
-        teams = [teams];
-    }
+router.post('/editar/:id', adminPlayerController.editarJugador);
 
-    const team = teams.join(', ');
-
-    await db.query(
-        'INSERT INTO players (slug, nombre, team, comentario) VALUES (?, ?, ?, ?)',
-        [slug, nombre, team, comentario]
-    );
-
-    res.redirect(`/admin/jugadores?tipo=success&mensaje=Se ha agregado el jugador ${nombre}`);
-});
-
-router.post('/editar/:id', async (req, res) => {
-    const { slug, nombre, comentario } = req.body;
-    let teams = req.body.teams || [];
-
-    if (!Array.isArray(teams)) {
-        teams = [teams];
-    }
-
-    const team = teams.join(', ');
-
-    await db.query(
-        'UPDATE players SET slug = ?, nombre = ?, team = ?, comentario = ? WHERE id = ?',
-        [slug, nombre, team, comentario, req.params.id]
-    );
-
-    res.redirect(`/admin/jugadores?tipo=success&mensaje=Se ha editado el jugador ${nombre}`);
-});
-
-router.post('/eliminar/:id', async (req, res) => {
-    const { nombre } = req.body;
-
-    await db.query(
-        'DELETE FROM players WHERE id = $1',
-        [req.params.id]
-    );
-
-    res.redirect(`/admin/jugadores?tipo=danger&mensaje=Se ha eliminado el jugador ${nombre}`);
-});
+router.post('/eliminar/:id', adminPlayerController.eliminarJugador);
 
 module.exports = router;
