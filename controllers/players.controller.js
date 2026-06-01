@@ -100,7 +100,7 @@ async function verJugador(req, res) {
 
         const socials = await Player.obtenerRedesPorJugador(player.nombre);
 
-        res.render('PLAYERS/player', {
+        res.render('players/player', {
             player,
             socials
         });
