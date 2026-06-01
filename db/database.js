@@ -1,6 +1,6 @@
 //const MOTOR = 'mysql';
- //const MOTOR = 'postgres';
-const MOTOR = 'linea';
+const MOTOR = 'postgres';
+//const MOTOR = 'linea';
 
 module.exports =
     MOTOR === 'mysql'
