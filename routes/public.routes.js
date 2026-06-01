@@ -5,64 +5,64 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
-router.get('/CART', (req, res) => {
-    res.render('PRINCIPAL/CART');
+router.get('/cart', (req, res) => {
+    res.render('principal/cart');
 });
 
-router.get('/TEAMS', (req, res) => {
-    res.render('PRINCIPAL/EQUIPOS');
+router.get('/teams', (req, res) => {
+    res.render('principal/equipos');
 });
 
-router.get('/INFO', (req, res) => {
-    res.render('PRINCIPAL/INFO');
+router.get('/info', (req, res) => {
+    res.render('principal/info');
 });
 
-router.get('/PRODUCTOS', (req, res) => {
-    res.render('PRINCIPAL/PRODUCTOS');
+router.get('/productos', (req, res) => {
+    res.render('principal/productos');
 });
 
-router.get('/COACHES', (req, res) => {
-    res.render('STAFF/COACHES');
+router.get('/coaches', (req, res) => {
+    res.render('staff/coaches');
 });
 
-router.get('/STAFF_MEMBERS', (req, res) => {
-    res.render('STAFF/STAFF_MEMBERS');
+router.get('/staff-members', (req, res) => {
+    res.render('staff/staff-members');
 });
 
-router.get('/SERAPHIM_OVERWATCH_MEMBERS', (req, res) => {
-    res.render('TEAM_MEMBERS/SERAPHIM_OVERWATCH_MEMBERS');
+router.get('/seraphim_overwatch_members', (req, res) => {
+    res.render('team_members/seraphim_overwatch_members');
 });
 
-router.get('/SERAPHIM_ROCKET_MEMBERS', (req, res) => {
-    res.render('TEAM_MEMBERS/SERAPHIM_ROCKET_MEMBERS');
+router.get('/seraphim_rocket_members', (req, res) => {
+    res.render('team_members/seraphim_rocket_members');
 });
 
-router.get('/SERENITY_OVERWATCH_MEMBERS', (req, res) => {
-    res.render('TEAM_MEMBERS/SERENITY_OVERWATCH_MEMBERS');
+router.get('/serenity_overwatch_members', (req, res) => {
+    res.render('team_members/serenity_overwatch_members');
 });
 
-router.get('/VOID_OVERWATCH_MEMBERS', (req, res) => {
-    res.render('TEAM_MEMBERS/VOID_OVERWATCH_MEMBERS');
+router.get('/void_overwatch_members', (req, res) => {
+    res.render('team_members/void_overwatch_members');
 });
 
-router.get('/FORTNITE_TEAMS', (req, res) => {
-    res.render('TEAMS/FORTNITE_TEAMS');
+router.get('/fortnite_teams', (req, res) => {
+    res.render('teams/fortnite_teams');
 });
 
-router.get('/MARVELRIVALS_TEAMS', (req, res) => {
-    res.render('TEAMS/MARVELRIVALS_TEAMS');
+router.get('/marvelrivals_teams', (req, res) => {
+    res.render('teams/marvelrivals_teams');
 });
 
-router.get('/OVERWATCH_TEAMS', (req, res) => {
-    res.render('TEAMS/OVERWATCH_TEAMS');
+router.get('/overwatch_teams', (req, res) => {
+    res.render('teams/overwatch_teams');
 });
 
-router.get('/ROCKET_TEAMS', (req, res) => {
-    res.render('TEAMS/ROCKET_TEAMS');
+router.get('/rocket_teams', (req, res) => {
+    res.render('teams/rocket_teams');
 });
 
-router.get('/VALORANT_TEAMS', (req, res) => {
-    res.render('TEAMS/VALORANT_TEAMS');
+router.get('/valorant_teams', (req, res) => {
+    res.render('teams/valorant_teams');
 });
 
 module.exports = router;

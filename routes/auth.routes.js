@@ -5,7 +5,7 @@ const axios = require('axios');
 const db = require('../db/database');
 
 router.get('/login', (req, res) => {
-    res.render('PRINCIPAL/LOGIN', {
+    res.render('principal/login', {
         mensaje: req.query.mensaje || null
     });
 });
@@ -86,7 +86,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/registro', (req, res) => {
-    res.render('PRINCIPAL/REGISTRO', {
+    res.render('principal/registro', {
         mensaje: req.query.mensaje || null
     });
 });
