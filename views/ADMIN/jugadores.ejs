@@ -1,0 +1,204 @@
+    <!DOCTYPE html>
+    <html data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ABCC Jugadores</title>
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/Blockletter.css">
+        <link rel="stylesheet" href="/assets/css/Orbitron.css">
+        <link rel="stylesheet" href="/assets/css/cart.css">
+        <link rel="stylesheet" href="/assets/css/fuente.css">
+    </head>
+
+    <body>
+    <nav class="navbar navbar-expand-lg fixed-top portfolio-navbar gradient navbar-dark" style="background:#000;">
+        <div class="container">
+            <img src="/assets/img/Seraphim/Logo1.png" style="width:50px;height:50px;">
+            <a class="navbar-brand logo" href="/" style="font-weight:bold;font-family:Lato, sans-serif;">SERAPHIM</a>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/admin/jugadores" style="font-weight:bold;">JUGADORES</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/redes" style="font-weight:bold;">REDES</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/equipos" style="font-weight:bold;">EQUIPOS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/" style="font-weight:bold;">WEB</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page" style="padding-top:120px;background:#fff;min-height:100vh;">
+        <section>
+            <div class="container">
+                <h1 style="font-weight:bold;color:#000;">ABCC JUGADORES</h1>
+                <hr>
+
+                <% if (mensaje) { %>
+                    <div id="mensaje-alerta" class="alert alert-<%= tipo %> alert-dismissible fade show" role="alert">
+                        <%= mensaje %>
+                        <button type="button" class="btn-close" onclick="cerrarAlerta()"></button>
+                    </div>
+                <% } %>
+
+                <form action="/admin/jugadores/agregar" method="POST" class="mb-4 p-3 border rounded">
+                    <h4 style="font-weight:bold;">Agregar jugador</h4>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="slug">Slug</label>
+                            <input class="form-control" id="slug" name="slug" placeholder="akromic" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label" for="nombre">Nombre</label>
+                            <input class="form-control" id="nombre" name="nombre" placeholder="AKROMIC" required>
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button class="btn btn-dark w-100" type="submit">AGREGAR</button>
+                        </div>
+                    </div>
+                    
+
+                    <div class="mt-3">
+                        <label class="form-label" style="font-weight:bold;">Equipos</label>
+
+                        <div class="row">
+                            <% equipos.forEach(equipo => { %>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="teams" value="<%= equipo.nombre_equipo %>" id="add_<%= equipo.id %>">
+                                        <label class="form-check-label" for="add_<%= equipo.id %>">
+                                            <%= equipo.nombre_equipo %>
+                                        </label>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <label class="form-label" for="comentario">Comentario</label>
+                        <textarea class="form-control" id="comentario" name="comentario" placeholder="Comentario del jugador"></textarea>
+                    </div>
+                </form>
+
+                <div class="mb-3">
+                    <label class="form-label" for="buscarJugador" style="font-weight:bold;">Buscar jugador</label>
+                    <input type="text" id="buscarJugador" class="form-control" placeholder="Escribe el nombre, slug o equipo del jugador...">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Slug</th>
+                                <th>Nombre</th>
+                                <th>Equipos</th>
+                                <th>Comentario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% players.forEach(player => { %>
+                                <tr class="fila-jugador">
+                                    <form action="/admin/jugadores/editar/<%= player.id %>" method="POST">
+                                        <td><%= player.id %></td>
+
+                                        <td>
+                                            <input class="form-control" name="slug" value="<%= player.slug %>">
+                                        </td>
+
+                                        <td>
+                                            <input class="form-control" name="nombre" value="<%= player.nombre %>">
+                                        </td>
+
+                                        <td>
+                                            <% equipos.forEach(equipo => { %>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="teams" value="<%= equipo.nombre_equipo %>" id="edit_<%= player.id %>_<%= equipo.id %>" <%= player.team && player.team.includes(equipo.nombre_equipo) ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="edit_<%= player.id %>_<%= equipo.id %>">
+                                                        <%= equipo.nombre_equipo %>
+                                                    </label>
+                                                </div>
+                                            <% }) %>
+                                        </td>
+
+                                        <td>
+                                            <textarea class="form-control" name="comentario"><%= player.comentario %></textarea>
+                                        </td>
+
+                                        <td>
+                                            <button class="btn btn-warning btn-sm mb-1 w-100" type="submit">Editar</button>
+                                    </form>
+
+                                            <form action="/admin/jugadores/eliminar/<%= player.id %>" method="POST" onsubmit="return confirmarEliminar('<%= player.nombre %>')">
+                                                <input type="hidden" name="nombre" value="<%= player.nombre %>">
+                                                <button class="btn btn-danger btn-sm w-100" type="submit">Eliminar</button>
+                                            </form>
+                                        </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    function confirmarEliminar(nombre) {
+        return confirm(`¿Estás seguro que quieres eliminar a este jugador: ${nombre}?`);
+    }
+
+    function cerrarAlerta() {
+        const alerta = document.getElementById('mensaje-alerta');
+
+        if (alerta) {
+            alerta.remove();
+        }
+
+        if (window.location.search.includes('mensaje=')) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
+    const buscarJugador = document.getElementById('buscarJugador');
+
+    if (buscarJugador) {
+        buscarJugador.addEventListener('keyup', function () {
+            const texto = this.value.toLowerCase();
+            const filas = document.querySelectorAll('.fila-jugador');
+
+            filas.forEach(fila => {
+                const inputs = fila.querySelectorAll('input, textarea');
+                let contenido = fila.innerText.toLowerCase();
+
+                inputs.forEach(input => {
+                    contenido += ' ' + input.value.toLowerCase();
+                });
+
+                fila.style.display = contenido.includes(texto) ? '' : 'none';
+            });
+        });
+    }
+
+    const alerta = document.getElementById('mensaje-alerta');
+
+    if (alerta) {
+        setTimeout(() => {
+            cerrarAlerta();
+        }, 3000);
+    }
+    </script>
+
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

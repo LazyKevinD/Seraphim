@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar gradient navbar-dark" style="background: var(--bs-emphasis-color);">
+    <div class="container">
+        <img src="/assets/img/Seraphim/Logo1.png" width="50" height="50">
+        <a class="navbar-brand logo" href="/" style="font-weight: bold;font-family: Lato, sans-serif;">SERAPHIM</a>
+
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/PRINCIPAL/PRODUCTOS">SHOP</a></li>
+                <li class="nav-item"><a class="nav-link" href="/TEAMS">TEAMS</a></li>
+
+                <% if (user && user.rol === 'ADMIN') { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                        href="#"
+                        id="adminDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                            ADMIN
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="adminDropdown">
+                            <li><a class="dropdown-item" href="/admin/jugadores">Jugadores</a></li>
+                            <li><a class="dropdown-item" href="/admin/redes">Redes</a></li>
+                            <li><a class="dropdown-item" href="/admin/equipos">Equipos</a></li>
+                            <li><a class="dropdown-item" href="/admin/jugador-redes">Jugador Redes</a></li>
+                            <li><a class="dropdown-item" href="/admin/miembros-equipo">Miembros Equipo</a></li>
+                        </ul>
+                    </li>
+                <% } %>
+            </ul>
+
+            <div class="ms-3">
+                <% if (user) { %>
+                    <span class="text-white fw-bold me-2"><%= user.usuario %></span>
+                    <a href="/logout" class="btn btn-outline-light btn-sm">Salir</a>
+                <% } else { %>
+                    <a href="/login" class="btn btn-outline-light btn-sm">Login</a>
+                    <a href="/registro" class="btn btn-light btn-sm">Registro</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
