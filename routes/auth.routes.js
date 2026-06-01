@@ -13,7 +13,7 @@ router.post('/login', async (req, res) => {
     const { usuario, password } = req.body;
 
     const [usuarios] = await db.query(
-        'SELECT * FROM usuarios WHERE usuario = ?',
+        'SELECT * FROM usuarios WHERE usuario = $1',
         [usuario]
     );
 
@@ -73,7 +73,7 @@ router.post('/registro', async (req, res) => {
 
     try {
         const [existeUsuario] = await db.query(
-            'SELECT id FROM usuarios WHERE usuario = ?',
+            'SELECT id FROM usuarios WHERE usuario = $1',
             [usuario]
         );
 
@@ -84,7 +84,7 @@ router.post('/registro', async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10);
 
         await db.query(
-            'INSERT INTO usuarios (usuario, password, rol) VALUES (?, ?, ?)',
+            'INSERT INTO usuarios (usuario, password, rol) VALUES ($1, $2, $3)',
             [usuario, passwordHash, 'REGISTRADO']
         );
 

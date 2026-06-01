@@ -16,7 +16,7 @@ router.post('/agregar', async (req, res) => {
     const { nombre_red_social } = req.body;
 
     await db.query(
-        'INSERT INTO redes_sociales (nombre_red_social) VALUES (?)',
+        'INSERT INTO redes_sociales (nombre_red_social) VALUES ($1)',
         [nombre_red_social]
     );
 
@@ -27,7 +27,7 @@ router.post('/editar/:id', async (req, res) => {
     const { nombre_red_social } = req.body;
 
     await db.query(
-        'UPDATE redes_sociales SET nombre_red_social = ? WHERE id = ?',
+        'UPDATE redes_sociales SET nombre_red_social = $1 WHERE id = $2',
         [nombre_red_social, req.params.id]
     );
 
@@ -38,7 +38,7 @@ router.post('/eliminar/:id', async (req, res) => {
     const { nombre_red_social } = req.body;
 
     await db.query(
-        'DELETE FROM redes_sociales WHERE id = ?',
+        'DELETE FROM redes_sociales WHERE id = $1',
         [req.params.id]
     );
 

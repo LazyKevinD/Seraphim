@@ -7,7 +7,7 @@ router.get('/:slug', async (req, res) => {
         const slug = req.params.slug;
 
         const [players] = await db.query(
-            'SELECT * FROM players WHERE slug = ?',
+            'SELECT * FROM players WHERE slug = $1',
             [slug]
         );
 
@@ -18,7 +18,7 @@ router.get('/:slug', async (req, res) => {
         const player = players[0];
 
         const [socials] = await db.query(
-            'SELECT red_social AS plataforma, url FROM jugador_red_social WHERE nombre_jugador = ?',
+            'SELECT red_social AS plataforma, url FROM jugador_red_social WHERE nombre_jugador = $1',
             [player.nombre]
         );
 

@@ -54,7 +54,7 @@ router.post('/eliminar/:id', async (req, res) => {
     const { nombre } = req.body;
 
     await db.query(
-        'DELETE FROM players WHERE id = ?',
+        'DELETE FROM players WHERE id = $1',
         [req.params.id]
     );
 
