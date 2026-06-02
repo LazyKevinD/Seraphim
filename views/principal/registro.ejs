@@ -47,10 +47,11 @@
                         </label>
 
                         <input class="form-control"
-                               id="usuario"
-                               name="usuario"
-                               type="text"
-                               required>
+                            id="usuario"
+                            name="usuario"
+                            type="text"
+                            value="<%= typeof usuario !== 'undefined' ? usuario : '' %>"
+                            required>
                     </div>
 
                     <div class="mb-3">

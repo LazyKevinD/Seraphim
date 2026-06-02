@@ -10,18 +10,42 @@ router.get('/login', (req, res) => {
     });
 });
 
+function validarUsuario(usuario) {
+    return /^[A-Za-z0-9]{4,}$/.test(usuario);
+}
+
+function validarPassword(password) {
+    return /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])\S{6,}$/.test(password);
+}
+
 router.post('/login', async (req, res) => {
     
     const { usuario, password } = req.body;
+    let { usuario, password } = req.body;
+
+    usuario = usuario ? usuario.trim() : '';
+
+    if (!validarUsuario(usuario)) {
+        return res.render('principal/login', {
+            mensaje: 'Usuario inválido',
+            usuario
+        });
+    }
+
+    if (!password || password.includes(' ')) {
+        return res.render('principal/login', {
+            mensaje: 'Contraseña inválida',
+            usuario
+        });
+    }
 
     const captcha = req.body['g-recaptcha-response'];
 
     if (!captcha) {
         return res.render('principal/login', {
-            mensaje: 'Completa el captcha',
-            usuario,
-            password
-        });
+        mensaje: 'Completa el captcha',
+        usuario
+    });
     }
 
     try {
@@ -95,19 +119,42 @@ router.get('/logout', (req, res) => {
 
 router.get('/registro', (req, res) => {
     res.render('principal/registro', {
-        mensaje: req.query.mensaje || null
+        mensaje: null,
+        usuario: ''
     });
 });
 
 router.post('/registro', async (req, res) => {
-    const { usuario, password, confirmarPassword } = req.body;
+    let { usuario, password, confirmarPassword } = req.body;
+
+    usuario = usuario ? usuario.trim() : '';
 
     if (!usuario || !password || !confirmarPassword) {
-        return res.redirect('/registro?mensaje=Todos los campos son obligatorios');
+        return res.render('principal/registro', {
+            mensaje: 'Todos los campos son obligatorios',
+            usuario
+        });
+    }
+
+    if (!validarUsuario(usuario)) {
+        return res.render('principal/registro', {
+            mensaje: 'El usuario debe tener mínimo 4 caracteres y solo letras y números',
+            usuario
+        });
+    }
+
+    if (!validarPassword(password)) {
+        return res.render('principal/registro', {
+            mensaje: 'La contraseña debe tener mínimo 6 caracteres, una mayúscula, un número y un carácter especial',
+            usuario
+        });
     }
 
     if (password !== confirmarPassword) {
-        return res.redirect('/registro?mensaje=Las contraseñas no coinciden');
+        return res.render('principal/registro', {
+            mensaje: 'Las contraseñas no coinciden',
+            usuario
+        });
     }
 
     try {
@@ -116,10 +163,11 @@ router.post('/registro', async (req, res) => {
             [usuario]
         );
 
-        const existeUsuario = result1.rows;
-
-        if (existeUsuario.length > 0) {
-            return res.redirect('/registro?mensaje=El usuario ya existe');
+        if (result1.rows.length > 0) {
+            return res.render('principal/registro', {
+                mensaje: 'El usuario ya existe',
+                usuario
+            });
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -133,7 +181,11 @@ router.post('/registro', async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.redirect('/registro?mensaje=Error al registrar usuario');
+
+        return res.render('principal/registro', {
+            mensaje: 'Error al registrar usuario',
+            usuario
+        });
     }
 });
 
