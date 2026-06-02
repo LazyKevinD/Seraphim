@@ -17,8 +17,12 @@ router.post('/login', async (req, res) => {
     const captcha = req.body['g-recaptcha-response'];
 
     if (!captcha) {
-        return res.redirect('/login?mensaje=Completa el captcha');
-    }
+    return res.render('principal/login', {
+        mensaje: 'Completa el captcha',
+        usuario,
+        password
+    });
+}
 
     try {
         const response = await axios.post(
@@ -33,7 +37,11 @@ router.post('/login', async (req, res) => {
         );
 
         if (!response.data.success) {
-            return res.redirect('/login?mensaje=Captcha inválido');
+            return res.render('principal/login', {
+                mensaje: 'Captcha inválido',
+                usuario,
+                password
+                });
         }
 
         const result = await db.query(
