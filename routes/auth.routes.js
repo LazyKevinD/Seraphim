@@ -17,12 +17,12 @@ router.post('/login', async (req, res) => {
     const captcha = req.body['g-recaptcha-response'];
 
     if (!captcha) {
-    return res.render('principal/login', {
-        mensaje: 'Completa el captcha',
-        usuario,
-        password
-    });
-}
+        return res.render('principal/login', {
+            mensaje: 'Completa el captcha',
+            usuario,
+            password
+        });
+    }
 
     try {
         const response = await axios.post(
