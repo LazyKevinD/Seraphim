@@ -19,8 +19,6 @@ function validarPassword(password) {
 }
 
 router.post('/login', async (req, res) => {
-    
-    const { usuario, password } = req.body;
     let { usuario, password } = req.body;
 
     usuario = usuario ? usuario.trim() : '';
